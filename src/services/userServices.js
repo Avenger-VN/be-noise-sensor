@@ -35,7 +35,7 @@ let hashUserPassword = (password) => {
 const handleCreateUserService = (data) => {
     return new Promise( async (resolve,reject) => {
         try {
-            if (!data.email || !data.password || !data.firstName || !data.lastName || !data.roleID) {
+            if (!data.email || !data.password || !data.firstName || !data.lastName || !data.roleID || !data.phone) {
                 resolve({
                     status: false,
                     mes: 'Missing params'
@@ -65,7 +65,7 @@ const handleCreateUserService = (data) => {
     })
 }
 
-let handleGetAllUserService = () => {
+const handleGetAllUserService = () => {
     return new Promise( async (resolve,reject) => {
         try {
             const users = await db.User.findAll({
@@ -85,7 +85,73 @@ let handleGetAllUserService = () => {
     })
 }
 
+const handleDeleteUserService = (userId) => {
+    return new Promise( async (resolve,reject) => {
+        try {
+            let user = await db.User.findOne({
+                where: {
+                    id: userId
+                },
+                raw: false
+            })
+            if(!user){
+                resolve({
+                    status: false,
+                    mes: "The user isn't exist!"
+                })
+            }
+
+            user.destroy().then(function(){
+                resolve({
+                    status: true,
+                    mes: "OK"
+                })
+            });
+        } catch (e) {
+            reject(e)
+        }
+    })
+}
+
+const handleUpdateUserService = (data) => {
+    return new Promise ( async (resolve,reject) => {
+        try {
+            const user = await db.User.findOne({
+                where: {
+                    id: data.id
+                },
+                raw: false
+            })
+
+            if(user){
+                user.firstName = data.firstName;
+                user.lastName = data.lastName;
+                user.address = data.address;
+                user.phone = data.phone;
+                user.email = data.email;
+
+                await user.save();
+
+                resolve({
+                    status: true,
+                    mes: "OK"
+                })
+            }else{
+                resolve({
+                    status: false,
+                    mes: "User's not found"
+                })
+            }
+            
+        } catch (e) {
+            reject(e)
+        }
+    })
+}
+
 module.exports = {
     handleCreateUserService,
-    handleGetAllUserService
+    handleGetAllUserService,
+    handleDeleteUserService,
+    handleUpdateUserService
 }
