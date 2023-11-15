@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict"
+const { Model } = require("sequelize")
 module.exports = (sequelize, DataTypes) => {
   class Location extends Model {
     /**
@@ -9,18 +7,21 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
+    static associate() {
       // define association here
     }
   }
-  Location.init({
-    name: DataTypes.STRING,
-    address: DataTypes.STRING,
-    latitude: DataTypes.INTEGER,
-    longitude: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'Location',
-  });
-  return Location;
-};
+  Location.init(
+    {
+      name: DataTypes.STRING,
+      address: DataTypes.STRING,
+      latitude: DataTypes.INTEGER,
+      longitude: DataTypes.INTEGER,
+    },
+    {
+      sequelize,
+      modelName: "Location",
+    },
+  )
+  return Location
+}

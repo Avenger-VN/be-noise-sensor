@@ -1,43 +1,43 @@
-'use strict';
+"use strict"
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('SensorDatas', {
+    await queryInterface.createTable("SensorDatas", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       sensorID: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       type: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       time: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       serialNo: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       locationID: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       field: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
-    });
+        type: Sequelize.DATE,
+      },
+    })
   },
-  async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('SensorDatas');
-  }
-};
+  async down(queryInterface) {
+    await queryInterface.dropTable("SensorDatas")
+  },
+}
