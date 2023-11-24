@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       sensorID: DataTypes.INTEGER,
       description: DataTypes.STRING,
       time: DataTypes.STRING,
+      name: DataTypes.STRING,
     },
     {
       sequelize,

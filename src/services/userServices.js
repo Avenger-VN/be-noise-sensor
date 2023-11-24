@@ -75,7 +75,7 @@ const handleCreateUserService = (data) => {
   })
 }
 
-const handleGetAllUserService = () => {
+const handleGetAllUserServiceDemo = () => {
   // eslint-disable-next-line no-async-promise-executor
   return new Promise(async (resolve, reject) => {
     try {
@@ -84,6 +84,36 @@ const handleGetAllUserService = () => {
           exclude: ["password"],
         },
       })
+
+      resolve({
+        status: true,
+        mes: "Get users successfully",
+        data: users,
+      })
+    } catch (e) {
+      reject(e)
+    }
+  })
+}
+
+const handleGetAllUserService = (page, limit) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let offset = (page - 1) * limit
+      const { count, rows } = await db.User.findAndCountAll({
+        offset: offset,
+        limit: limit,
+        attributes: {
+          exclude: ["password"],
+        },
+      })
+      let totalPage = Math.ceil(count / limit)
+      let users = {
+        totalRows: count,
+        totalPage: totalPage,
+        users: rows,
+      }
+
       resolve({
         status: true,
         mes: "Get users successfully",
@@ -165,4 +195,5 @@ module.exports = {
   handleGetAllUserService,
   handleDeleteUserService,
   handleUpdateUserService,
+  handleGetAllUserServiceDemo,
 }

@@ -1,8 +1,8 @@
-const userServices = require("../services/userServices")
+const sensorServices = require("../services/sensorServices")
 
-const handleCreateUser = async (req, res) => {
+const handleCreateSensor = async (req, res) => {
   try {
-    const response = await userServices.handleCreateUserService(req.body)
+    const response = await sensorServices.handleCreateSensorService(req.body)
     return res.status(200).json({
       status: response.status,
       mes: response.mes,
@@ -16,20 +16,13 @@ const handleCreateUser = async (req, res) => {
   }
 }
 
-const handleGetAllUser = async (req, res) => {
+const handleGetAllSensor = async (req, res) => {
   try {
-    let response = null
-    if (req.query.page && req.query.limit) {
-      let page = req.query.page
-      let limit = req.query.limit
-      response = await userServices.handleGetAllUserService(+page, +limit)
-    } else {
-      response = await userServices.handleGetAllUserServiceDemo()
-    }
+    const response = await sensorServices.handleGetAllSensorService()
     return res.status(200).json({
-      status: response?.status,
-      mes: response?.mes,
-      data: response?.data,
+      status: response.status,
+      mes: response.mes,
+      data: response.data,
     })
   } catch (e) {
     console.log(e)
@@ -40,10 +33,10 @@ const handleGetAllUser = async (req, res) => {
   }
 }
 
-const handleDeleteUser = async (req, res) => {
+const handleDeleteSensor = async (req, res) => {
   try {
     const _id = req.params
-    const response = await userServices.handleDeleteUserService(_id)
+    const response = await sensorServices.handleDeleteSensorService(_id)
     return res.status(200).json({
       status: response.status,
       mes: response.mes,
@@ -57,9 +50,9 @@ const handleDeleteUser = async (req, res) => {
   }
 }
 
-const handleUpdateUser = async (req, res) => {
+const handleUpdateSensor = async (req, res) => {
   try {
-    const response = await userServices.handleUpdateUserService(req.body)
+    const response = await sensorServices.handleUpdateSensorService(req.body)
     return res.status(200).json({
       status: response.status,
       mes: response.mes,
@@ -74,8 +67,8 @@ const handleUpdateUser = async (req, res) => {
 }
 
 module.exports = {
-  handleCreateUser,
-  handleGetAllUser,
-  handleDeleteUser,
-  handleUpdateUser,
+  handleCreateSensor,
+  handleGetAllSensor,
+  handleDeleteSensor,
+  handleUpdateSensor,
 }

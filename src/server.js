@@ -7,6 +7,7 @@ const app = express()
 connectDB()
 
 // app.use(express.json())
+
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
 
