@@ -3,8 +3,25 @@ const connectDB = require("./config/dbConnect")
 const initWebRoutes = require("./routes/api")
 const bodyParser = require("body-parser")
 const app = express()
+const cors = require("cors")
+const swaggerUi = require("swagger-ui-express")
+const fs = require("fs")
+const path = require("path")
+const YAML = require("yaml")
+
+const file = fs.readFileSync(path.resolve("swagger.yaml"), "utf8")
+const swaggerDocument = YAML.parse(file)
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 connectDB()
+
+app.use(
+  cors({
+    origin: "http://localhost:5000/api/v1/",
+    methods: ["POST", "PUT", "GET", "DELETE"],
+  }),
+)
 
 // app.use(express.json())
 

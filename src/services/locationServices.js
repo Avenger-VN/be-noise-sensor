@@ -3,7 +3,7 @@ const db = require("../models")
 const handleCreateLocationService = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      if (!data.address || !data.latitude || data.longitude) {
+      if (!data.address || !data.latitude || !data.longitude) {
         resolve({
           status: false,
           mes: "Missing params",

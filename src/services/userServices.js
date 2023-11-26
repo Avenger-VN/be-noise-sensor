@@ -48,6 +48,7 @@ const handleCreateUserService = (data) => {
         resolve({
           status: false,
           mes: "Missing params",
+          data: {},
         })
       }
       let check = await checkUserMail(data.email)
@@ -55,6 +56,7 @@ const handleCreateUserService = (data) => {
         resolve({
           status: false,
           mes: "Your is email already used. Please try another email!",
+          data: {},
         })
       } else {
         let hashPasswordFromBcrypt = await hashUserPassword(data.password)
@@ -63,10 +65,11 @@ const handleCreateUserService = (data) => {
           password: hashPasswordFromBcrypt,
         }
         console.log("Check user: ", dataInput)
-        await db.User.create(dataInput)
+        const user = await db.User.create(dataInput)
         resolve({
           status: true,
           mes: "OK",
+          data: user,
         })
       }
     } catch (e) {
@@ -172,11 +175,12 @@ const handleUpdateUserService = (data) => {
         user.phone = data.phone
         user.email = data.email
 
-        await user.save()
+        const userUpdate = await user.save()
 
         resolve({
           status: true,
           mes: "OK",
+          data: userUpdate,
         })
       } else {
         resolve({

@@ -6,6 +6,7 @@ const handleCreateUser = async (req, res) => {
     return res.status(200).json({
       status: response.status,
       mes: response.mes,
+      data: response.data,
     })
   } catch (e) {
     console.log(e)
@@ -42,7 +43,7 @@ const handleGetAllUser = async (req, res) => {
 
 const handleDeleteUser = async (req, res) => {
   try {
-    const _id = req.params
+    const { _id } = req.params
     const response = await userServices.handleDeleteUserService(_id)
     return res.status(200).json({
       status: response.status,
@@ -63,6 +64,7 @@ const handleUpdateUser = async (req, res) => {
     return res.status(200).json({
       status: response.status,
       mes: response.mes,
+      data: response.data,
     })
   } catch (e) {
     console.log(e)
