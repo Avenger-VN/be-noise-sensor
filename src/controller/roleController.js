@@ -35,7 +35,7 @@ const handleGetAllRole = async (req, res) => {
 
 const handleDeleteRole = async (req, res) => {
   try {
-    const _id = req.params
+    const { _id } = req.params
     const response = await roleServices.handleDeleteRoleService(_id)
     return res.status(200).json({
       status: response.status,

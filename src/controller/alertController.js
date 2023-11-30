@@ -35,7 +35,7 @@ const handleGetAllAlert = async (req, res) => {
 
 const handleDeleteAlert = async (req, res) => {
   try {
-    const _id = req.params
+    const { _id } = req.params
     const response = await alertServices.handleDeleteAlertService(_id)
     return res.status(200).json({
       status: response.status,

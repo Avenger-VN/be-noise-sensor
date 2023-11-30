@@ -37,7 +37,7 @@ const handleGetAllLocation = async (req, res) => {
 
 const handleDeleteLocation = async (req, res) => {
   try {
-    const _id = req.params
+    const { _id } = req.params
     const response = await locationServices.handleDeleteLocationService(_id)
     return res.status(200).json({
       status: response.status,

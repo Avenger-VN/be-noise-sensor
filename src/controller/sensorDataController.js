@@ -37,7 +37,7 @@ const handleGetAllSensorData = async (req, res) => {
 
 const handleDeleteSensorData = async (req, res) => {
   try {
-    const _id = req.params
+    const { _id } = req.params
     const response = await sensorDataServices.handleDeleteSensorDataService(_id)
     return res.status(200).json({
       status: response.status,

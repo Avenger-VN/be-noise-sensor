@@ -17,6 +17,16 @@ servers:
 tags:
   - name: User
     description: API about user
+  - name: Role
+    description: API about role user
+  - name: Alert
+    description: API about alert sensor
+  - name: Location
+    description: API about location
+  - name: Sensor
+    description: API about sensor
+  - name: Sensor Data
+    description: API about sensor data
 paths:
   /create-user:
     post:
@@ -299,4 +309,1133 @@ paths:
         - petstore_auth:
             - write:pets
             - read:pets
-    
+  
+  /create-role:
+    post:
+      tags:
+        - Role
+      summary: Add a role in data
+      description: Add a role in data
+      operationId: addRole
+      requestBody:
+        description: Create a role in data
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: admin
+                description::
+                  type: string
+                  example: role admin
+        required: true
+      responses:
+        '200':
+          description: Create a role successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id: 
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: admin
+                  description::
+                    type: string
+                    example: role admin
+                      
+        '401':
+          description: Invalid input
+      security:
+        - petstore_auth:
+            - write:pets
+            - read:pets
+  /get-all-role:
+    get:
+      tags:
+        - Role
+      summary: Get all role has pagination
+      description: Get all role has pagination
+      operationId: getRole
+      parameters:
+        - name: limit
+          in: query
+          description: Limit role
+          required: true
+          explode: true
+          schema:
+            type: integer
+            default: 2
+        - name: page
+          in: query
+          description: Page role
+          required: true
+          explode: true
+          schema:
+            type: integer
+            default: 1
+      responses:
+        '200':
+          description: get role successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: true
+                  mes:
+                    type: string
+                    example: "Get role successfully"
+                  data:
+                    type: object
+                    properties:
+                      totalRows:
+                        type: integer
+                        example: 2
+                      totalPage: 
+                        type: integer
+                        example: 2
+                      role:
+                        type: array
+                        items: 
+                          type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                          name:
+                            type: string
+                            example: admin
+                          description::
+                            type: string
+                            example: role admin
+                              
+        '400':
+          description: Invalid status value
+      security:
+        - petstore_auth:
+            - write:pets
+            - read:pets
+  /update-role:
+    put:
+      tags:
+        - Role
+      summary: Finds role by id
+      description: Finds role by id
+      operationId: updateRole
+      requestBody:
+        description: Update a role in data
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  example: 1
+                name:
+                  type: string
+                  example: admin
+                description::
+                  type: string
+                  example: role admin
+                
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: admin
+                  description::
+                    type: string
+                    example: role admin
+        '400':
+          description: Invalid tag value
+      security:
+        - petstore_auth:
+            - write:pets
+            - read:pets
+  /delete-role/{roleId}:
+    delete:
+      tags:
+        - Role
+      summary: Delete a role
+      description: Delete a role
+      operationId: deleteById
+      parameters:
+        - name: roleId
+          in: path
+          description: ID of role in url
+          required: true
+          schema:
+            type: integer
+            format: integer
+      responses:
+        '200':
+          description: delete a role successful 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: true
+                  mes:
+                    type: string
+                    example: "OK"
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: User not found
+      security:
+        - api_key: []
+        - petstore_auth:
+            - write:pets
+            - read:pets
+
+  /create-alert:
+    post:
+      tags:
+        - Alert
+      summary: Add a alert in data
+      description: Add a alert in data
+      operationId: addRole
+      requestBody:
+        description: Create a alert in data
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sensorID:
+                  type: integer
+                  example: 12
+                description:
+                  type: string
+                  example: alert sensor
+                time:
+                  type: string
+                  example: 1528362933
+                name:
+                  type: string
+                  example: alert
+        required: true
+      responses:
+        '200':
+          description: Create a role successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id: 
+                    type: integer
+                    example: 1
+                  sensorID:
+                    type: integer
+                    example: 12
+                  description:
+                    type: string
+                    example: alert sensor
+                  time:
+                    type: string
+                    example: 1528362933
+                  name:
+                    type: string
+                    example: alert
+                      
+        '401':
+          description: Invalid input
+      security:
+        - petstore_auth:
+            - write:pets
+            - read:pets 
+
+  /get-all-alert:
+    get:
+      tags:
+        - Alert
+      summary: Get all alert has pagination
+      description: Get all alert has pagination
+      operationId: getAlert
+      parameters:
+        - name: limit
+          in: query
+          description: Limit alert
+          required: true
+          explode: true
+          schema:
+            type: integer
+            default: 2
+        - name: page
+          in: query
+          description: Page alert
+          required: true
+          explode: true
+          schema:
+            type: integer
+            default: 1
+      responses:
+        '200':
+          description: get alert successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: true
+                  mes:
+                    type: string
+                    example: "Get alert successfully"
+                  data:
+                    type: object
+                    properties:
+                      totalRows:
+                        type: integer
+                        example: 2
+                      totalPage: 
+                        type: integer
+                        example: 2
+                      alert:
+                        type: array
+                        items: 
+                          type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                          sensorID:
+                            type: integer
+                            example: 12
+                          description:
+                            type: string
+                            example: alert sensor
+                          time:
+                            type: string
+                            example: 1528362933
+                          name:
+                            type: string
+                            example: alert
+                              
+        '400':
+          description: Invalid status value
+      security:
+        - petstore_auth:
+            - write:pets
+            - read:pets
+  /update-alert:
+    put:
+      tags:
+        - Alert
+      summary: Finds alert by id
+      description: Finds alert by id
+      operationId: updateAlert
+      requestBody:
+        description: Update a alert in data
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  example: 1
+                sensorID:
+                  type: integer
+                  example: 12
+                description:
+                  type: string
+                  example: alert sensor
+                time:
+                  type: string
+                  example: 1528362933
+                name:
+                  type: string
+                  example: alert
+                
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  sensorID:
+                    type: integer
+                    example: 12
+                  description:
+                    type: string
+                    example: alert sensor
+                  time:
+                    type: string
+                    example: 1528362933
+                  name:
+                    type: string
+                    example: alert
+        '400':
+          description: Invalid tag value
+      security:
+        - petstore_auth:
+            - write:pets
+            - read:pets
+
+  /delete-alert/{alertId}:
+    delete:
+      tags:
+        - Alert
+      summary: Delete a alert
+      description: Delete a alert
+      operationId: deleteById
+      parameters:
+        - name: alertId
+          in: path
+          description: ID of alert in url
+          required: true
+          schema:
+            type: integer
+            format: integer
+      responses:
+        '200':
+          description: delete a alert successful 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: true
+                  mes:
+                    type: string
+                    example: "OK"
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: User not found
+      security:
+        - api_key: []
+        - petstore_auth:
+            - write:pets
+            - read:pets
+  
+  /create-location:
+    post:
+      tags:
+        - Location
+      summary: Add a location in data
+      description: Add a location in data
+      operationId: addLocation
+      requestBody:
+        description: Create a location in data
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: HCM
+                address:
+                  type: string
+                  example: 39 Xuan Oai
+                latitude:
+                  type: integer
+                  example: 15
+                longitude:
+                  type: integer
+                  example: 12
+        required: true
+      responses:
+        '200':
+          description: Create a location successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id: 
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: HCM
+                  address:
+                    type: string
+                    example: 39 Xuan Oai
+                  latitude:
+                    type: integer
+                    example: 15
+                  longitude:
+                    type: integer
+                    example: 12
+                      
+        '401':
+          description: Invalid input
+      security:
+        - petstore_auth:
+            - write:pets
+            - read:pets 
+
+  /get-all-location:
+    get:
+      tags:
+        - Location
+      summary: Get all location has pagination
+      description: Get all location has pagination
+      operationId: getLocation
+      parameters:
+        - name: limit
+          in: query
+          description: Limit location
+          required: true
+          explode: true
+          schema:
+            type: integer
+            default: 2
+        - name: page
+          in: query
+          description: Page location
+          required: true
+          explode: true
+          schema:
+            type: integer
+            default: 1
+      responses:
+        '200':
+          description: get location successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: true
+                  mes:
+                    type: string
+                    example: "Get location successfully"
+                  data:
+                    type: object
+                    properties:
+                      totalRows:
+                        type: integer
+                        example: 2
+                      totalPage: 
+                        type: integer
+                        example: 2
+                      location:
+                        type: array
+                        items: 
+                          type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                          name:
+                            type: string
+                            example: HCM
+                          address:
+                            type: string
+                            example: 39 Xuan Oai
+                          latitude:
+                            type: integer
+                            example: 15
+                          longitude:
+                            type: integer
+                            example: 12
+                              
+        '400':
+          description: Invalid status value
+      security:
+        - petstore_auth:
+            - write:pets
+            - read:pets
+  /update-location:
+    put:
+      tags:
+        - Location
+      summary: Finds Location by id
+      description: Finds location by id
+      operationId: updateLocation
+      requestBody:
+        description: Update a location in data
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  example: 1
+                name:
+                  type: string
+                  example: HCM
+                address:
+                  type: string
+                  example: 39 Xuan Oai
+                latitude:
+                  type: integer
+                  example: 15
+                longitude:
+                  type: integer
+                  example: 12
+                
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: HCM
+                  address:
+                    type: string
+                    example: 39 Xuan Oai
+                  latitude:
+                    type: integer
+                    example: 15
+                  longitude:
+                    type: integer
+                    example: 12
+        '400':
+          description: Invalid tag value
+      security:
+        - petstore_auth:
+            - write:pets
+            - read:pets
+
+  /delete-location/{locationId}:
+    delete:
+      tags:
+        - Location
+      summary: Delete a location
+      description: Delete a location
+      operationId: deleteById
+      parameters:
+        - name: locationId
+          in: path
+          description: ID of location in url
+          required: true
+          schema:
+            type: integer
+            format: integer
+      responses:
+        '200':
+          description: delete a location successful 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: true
+                  mes:
+                    type: string
+                    example: "OK"
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: User not found
+      security:
+        - api_key: []
+        - petstore_auth:
+            - write:pets
+            - read:pets
+  
+  /create-sensor:
+    post:
+      tags:
+        - Sensor
+      summary: Add a sensor in data
+      description: Add a sensor in data
+      operationId: addLocation
+      requestBody:
+        description: Create a sensor in data
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: HCM
+                description:
+                  type: string
+                  example: Mo ta
+                type:
+                  type: string
+                  example: type
+               
+        required: true
+      responses:
+        '200':
+          description: Create a sensor successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id: 
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: HCM
+                  description:
+                    type: string
+                    example: Mo ta
+                  type:
+                    type: string
+                    example: type
+                      
+        '401':
+          description: Invalid input
+      security:
+        - petstore_auth:
+            - write:pets
+            - read:pets 
+
+  /get-all-sensor:
+    get:
+      tags:
+        - Sensor
+      summary: Get all sensor has pagination
+      description: Get all sensor has pagination
+      operationId: getSensor
+      parameters:
+        - name: limit
+          in: query
+          description: Limit sensor
+          required: false
+          explode: true
+          schema:
+            type: integer
+            default: 2
+        - name: page
+          in: query
+          description: Page sensor
+          required: false
+          explode: true
+          schema:
+            type: integer
+            default: 1
+      responses:
+        '200':
+          description: get sensor successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: true
+                  mes:
+                    type: string
+                    example: "Get sensor successfully"
+                  data:
+                    type: object
+                    properties:
+                      totalRows:
+                        type: integer
+                        example: 2
+                      totalPage: 
+                        type: integer
+                        example: 2
+                      sensor:
+                        type: array
+                        items: 
+                          type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                          name:
+                            type: string
+                            example: HCM
+                          description:
+                            type: string
+                            example: Mo ta
+                          type:
+                            type: string
+                            example: type
+                              
+        '400':
+          description: Invalid status value
+      security:
+        - petstore_auth:
+            - write:pets
+            - read:pets
+  /update-sensor:
+    put:
+      tags:
+        - Sensor
+      summary: Finds sensor by id
+      description: Finds sensor by id
+      operationId: updateSensor
+      requestBody:
+        description: Update a sensor in data
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  example: 1
+                name:
+                  type: string
+                  example: HCM
+                description:
+                  type: string
+                  example: Mo ta
+                type:
+                  type: string
+                  example: type
+                
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: HCM
+                  description:
+                    type: string
+                    example: Mo ta
+                  type:
+                    type: string
+                    example: type
+        '400':
+          description: Invalid tag value
+      security:
+        - petstore_auth:
+            - write:pets
+            - read:pets
+
+  /delete-sensor/{sensorId}:
+    delete:
+      tags:
+        - Sensor
+      summary: Delete a sensor
+      description: Delete a sensor
+      operationId: deleteById
+      parameters:
+        - name: sensorId
+          in: path
+          description: ID of sensor in url
+          required: true
+          schema:
+            type: integer
+            format: integer
+      responses:
+        '200':
+          description: delete a sensor successful 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: true
+                  mes:
+                    type: string
+                    example: "OK"
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: User not found
+      security:
+        - api_key: []
+        - petstore_auth:
+            - write:pets
+            - read:pets
+  
+  /create-sensor-data:
+    post:
+      tags:
+        - Sensor Data
+      summary: Add a sensor in data
+      description: Add a sensor in data
+      operationId: addSensorData
+      requestBody:
+        description: Create a sensor in data
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sensorID:
+                  type: integer
+                  example: 1
+                time:
+                  type: string
+                  example: '13343893444'
+                type:
+                  type: string
+                  example: type
+                serialNo: 
+                  type: integer
+                  example: 2
+                locationID:
+                  type: integer
+                  example: 1
+               
+        required: true
+      responses:
+        '200':
+          description: Create a sensor data successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id: 
+                    type: integer
+                    example: 1
+                  sensorID:
+                    type: integer
+                    example: 1
+                  time:
+                    type: string
+                    example: '13343893444'
+                  type:
+                    type: string
+                    example: type
+                  serialNo: 
+                    type: integer
+                    example: 2
+                  locationID:
+                    type: integer
+                    example: 1
+                      
+        '401':
+          description: Invalid input
+      security:
+        - petstore_auth:
+            - write:pets
+            - read:pets 
+
+  /get-all-sensor-data:
+    get:
+      tags:
+        - Sensor Data
+      summary: Get all sensor data has pagination
+      description: Get all sensor data has pagination
+      operationId: getSensorData
+      parameters:
+        - name: limit
+          in: query
+          description: Limit sensor data
+          required: false
+          explode: true
+          schema:
+            type: integer
+            default: 2
+        - name: page
+          in: query
+          description: Page sensor data
+          required: false
+          explode: true
+          schema:
+            type: integer
+            default: 1
+      responses:
+        '200':
+          description: get sensor data successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: true
+                  mes:
+                    type: string
+                    example: "Get sensor data successfully"
+                  data:
+                    type: object
+                    properties:
+                      totalRows:
+                        type: integer
+                        example: 2
+                      totalPage: 
+                        type: integer
+                        example: 2
+                      sensorData:
+                        type: array
+                        items: 
+                          type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                          sensorID:
+                            type: integer
+                            example: 1
+                          time:
+                            type: string
+                            example: '13343893444'
+                          type:
+                            type: string
+                            example: type
+                          serialNo: 
+                            type: integer
+                            example: 2
+                          locationID:
+                            type: integer
+                            example: 1
+                              
+        '400':
+          description: Invalid status value
+      security:
+        - petstore_auth:
+            - write:pets
+            - read:pets
+  /update-sensor-data:
+    put:
+      tags:
+        - Sensor Data
+      summary: Finds sensor data by id
+      description: Finds sensor data by id
+      operationId: updateSensorData
+      requestBody:
+        description: Update a sensor data in data
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  example: 1
+                sensorID:
+                  type: integer
+                  example: 1
+                time:
+                  type: string
+                  example: '13343893444'
+                type:
+                  type: string
+                  example: type
+                serialNo: 
+                  type: integer
+                  example: 2
+                locationID:
+                  type: integer
+                  example: 1
+                
+        required: true
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  sensorID:
+                    type: integer
+                    example: 1
+                  time:
+                    type: string
+                    example: '13343893444'
+                  type:
+                    type: string
+                    example: type
+                  serialNo: 
+                    type: integer
+                    example: 2
+                  locationID:
+                    type: integer
+                    example: 1
+        '400':
+          description: Invalid tag value
+      security:
+        - petstore_auth:
+            - write:pets
+            - read:pets
+
+  /delete-sensor-data/{id}:
+    delete:
+      tags:
+        - Sensor Data
+      summary: Delete a sensor data
+      description: Delete a sensor data
+      operationId: deleteById
+      parameters:
+        - name: id
+          in: path
+          description: ID of sensor data in url
+          required: true
+          schema:
+            type: integer
+            format: integer
+      responses:
+        '200':
+          description: delete a sensor data successful 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: true
+                  mes:
+                    type: string
+                    example: "OK"
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: User not found
+      security:
+        - api_key: []
+        - petstore_auth:
+            - write:pets
+            - read:pets
