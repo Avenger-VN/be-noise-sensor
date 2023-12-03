@@ -18,11 +18,18 @@ const handleCreateAlert = async (req, res) => {
 
 const handleGetAllAlert = async (req, res) => {
   try {
-    const response = await alertServices.handleGetAllAlertService()
+    let response = null
+    if (req.query.page && req.query.limit) {
+      let page = req.query.page
+      let limit = req.query.limit
+      response = await alertServices.handleGetAllAlertService(+page, +limit)
+    } else {
+      response = await alertServices.handleGetAllAlertServiceDemo()
+    }
     return res.status(200).json({
-      status: response.status,
-      mes: response.mes,
-      data: response.data,
+      status: response?.status,
+      mes: response?.mes,
+      data: response?.data,
     })
   } catch (e) {
     console.log(e)

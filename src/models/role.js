@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       name: DataTypes.STRING,
       description: DataTypes.STRING,
+      deleted: DataTypes.BOOLEAN,
     },
     {
       sequelize,

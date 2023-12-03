@@ -43,6 +43,9 @@ const handleGetAllAlertService = (page, limit) => {
     try {
       let offset = (page - 1) * limit
       const { count, rows } = await db.Alert.findAndCountAll({
+        where: {
+          deleted: false,
+        },
         offset: offset,
         limit: limit,
       })
@@ -67,25 +70,23 @@ const handleGetAllAlertService = (page, limit) => {
 const handleDeleteAlertService = (alertId) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let data = await db.Alert.findOne({
+      const alert = await db.Alert.findOne({
         where: {
           id: alertId,
         },
         raw: false,
       })
-      if (!data) {
-        resolve({
-          status: false,
-          mes: "The alert isn't exist!",
-        })
-      }
 
-      data.destroy().then(function () {
+      if (alert) {
+        alert.deleted = true
+
+        await alert.save()
+
         resolve({
           status: true,
           mes: "OK",
         })
-      })
+      }
     } catch (e) {
       reject(e)
     }

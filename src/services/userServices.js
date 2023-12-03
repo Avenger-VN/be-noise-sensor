@@ -129,28 +129,25 @@ const handleGetAllUserService = (page, limit) => {
 }
 
 const handleDeleteUserService = (userId) => {
-  // eslint-disable-next-line no-async-promise-executor
   return new Promise(async (resolve, reject) => {
     try {
-      let user = await db.User.findOne({
+      const user = await db.User.findOne({
         where: {
           id: userId,
         },
         raw: false,
       })
-      if (!user) {
-        resolve({
-          status: false,
-          mes: "The user isn't exist!",
-        })
-      }
 
-      user.destroy().then(function () {
+      if (user) {
+        user.deleted = true
+
+        await user.save()
+
         resolve({
           status: true,
           mes: "OK",
         })
-      })
+      }
     } catch (e) {
       reject(e)
     }

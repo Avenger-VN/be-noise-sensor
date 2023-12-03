@@ -20,11 +20,21 @@ const handleCreateSensorData = async (req, res) => {
 
 const handleGetAllSensorData = async (req, res) => {
   try {
-    const response = await sensorDataServices.handleGetAllSensorDataService()
+    let response = null
+    if (req.query.page && req.query.limit) {
+      let page = req.query.page
+      let limit = req.query.limit
+      response = await sensorDataServices.handleGetAllSensorDataService(
+        +page,
+        +limit,
+      )
+    } else {
+      response = await sensorDataServices.handleGetAllSensorDataServiceDemo()
+    }
     return res.status(200).json({
-      status: response.status,
-      mes: response.mes,
-      data: response.data,
+      status: response?.status,
+      mes: response?.mes,
+      data: response?.data,
     })
   } catch (e) {
     console.log(e)

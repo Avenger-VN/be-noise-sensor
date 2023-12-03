@@ -20,11 +20,21 @@ const handleCreateLocation = async (req, res) => {
 
 const handleGetAllLocation = async (req, res) => {
   try {
-    const response = await locationServices.handleGetAllLocationService()
+    let response = null
+    if (req.query.page && req.query.limit) {
+      let page = req.query.page
+      let limit = req.query.limit
+      response = await locationServices.handleGetAllLocationService(
+        +page,
+        +limit,
+      )
+    } else {
+      response = await locationServices.handleGetAllLocationServiceDemo()
+    }
     return res.status(200).json({
-      status: response.status,
-      mes: response.mes,
-      data: response.data,
+      status: response?.status,
+      mes: response?.mes,
+      data: response?.data,
     })
   } catch (e) {
     console.log(e)

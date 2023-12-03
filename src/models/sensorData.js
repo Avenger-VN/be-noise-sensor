@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       serialNo: DataTypes.INTEGER,
       locationID: DataTypes.INTEGER,
       field: DataTypes.STRING,
+      deleted: DataTypes.BOOLEAN,
     },
     {
       sequelize,

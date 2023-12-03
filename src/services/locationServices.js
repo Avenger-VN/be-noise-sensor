@@ -67,25 +67,23 @@ const handleGetAllLocationService = (page, limit) => {
 const handleDeleteLocationService = (locationId) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let data = await db.Location.findOne({
+      const location = await db.Location.findOne({
         where: {
           id: locationId,
         },
         raw: false,
       })
-      if (!data) {
-        resolve({
-          status: false,
-          mes: "The location isn't exist!",
-        })
-      }
 
-      data.destroy().then(function () {
+      if (location) {
+        location.deleted = true
+
+        await location.save()
+
         resolve({
           status: true,
           mes: "OK",
         })
-      })
+      }
     } catch (e) {
       reject(e)
     }

@@ -18,11 +18,18 @@ const handleCreateRole = async (req, res) => {
 
 const handleGetAllRole = async (req, res) => {
   try {
-    const response = await roleServices.handleGetAllRoleService()
+    let response = null
+    if (req.query.page && req.query.limit) {
+      let page = req.query.page
+      let limit = req.query.limit
+      response = await roleServices.handleGetAllRoleService(+page, +limit)
+    } else {
+      response = await roleServices.handleGetAllRoleServiceDemo()
+    }
     return res.status(200).json({
-      status: response.status,
-      mes: response.mes,
-      data: response.data,
+      status: response?.status,
+      mes: response?.mes,
+      data: response?.data,
     })
   } catch (e) {
     console.log(e)

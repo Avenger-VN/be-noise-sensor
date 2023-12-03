@@ -27,6 +27,10 @@ module.exports = {
       field: {
         type: Sequelize.STRING,
       },
+      deleted: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

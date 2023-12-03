@@ -66,28 +66,25 @@ const handleGetAllRoleService = (page, limit) => {
 }
 
 const handleDeleteRoleService = (roleId) => {
-  // eslint-disable-next-line no-async-promise-executor
   return new Promise(async (resolve, reject) => {
     try {
-      let data = await db.Role.findOne({
+      const role = await db.Role.findOne({
         where: {
           id: roleId,
         },
         raw: false,
       })
-      if (!data) {
-        resolve({
-          status: false,
-          mes: "The role isn't exist!",
-        })
-      }
 
-      data.destroy().then(function () {
+      if (role) {
+        role.deleted = true
+
+        await role.save()
+
         resolve({
           status: true,
           mes: "OK",
         })
-      })
+      }
     } catch (e) {
       reject(e)
     }

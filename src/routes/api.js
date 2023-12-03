@@ -19,25 +19,28 @@ let initWebRoutes = (app) => {
   router.post("/create-alert", alertController.handleCreateAlert)
   router.get("/get-all-alert", alertController.handleGetAllAlert)
   router.put("/update-alert", alertController.handleUpdateAlert)
-  router.get("/delete-alert/:_id", alertController.handleDeleteAlert)
+  router.delete("/delete-alert/:_id", alertController.handleDeleteAlert)
 
   //locations
   router.post("/create-location", locationController.handleCreateLocation)
   router.get("/get-all-location", locationController.handleGetAllLocation)
   router.put("/update-location", locationController.handleUpdateLocation)
-  router.get("/delete-location/:_id", locationController.handleDeleteLocation)
+  router.delete(
+    "/delete-location/:_id",
+    locationController.handleDeleteLocation,
+  )
 
   //roles
   router.post("/create-role", roleController.handleCreateRole)
   router.get("/get-all-role", roleController.handleGetAllRole)
   router.put("/update-role", roleController.handleUpdateRole)
-  router.get("/delete-role/:_id", roleController.handleDeleteRole)
+  router.delete("/delete-role/:_id", roleController.handleDeleteRole)
 
   //sensors
   router.post("/create-sensor", sensorController.handleCreateSensor)
   router.get("/get-all-sensor", sensorController.handleGetAllSensor)
   router.put("/update-sensor", sensorController.handleUpdateSensor)
-  router.get("/delete-sensor/:_id", sensorController.handleDeleteSensor)
+  router.delete("/delete-sensor/:_id", sensorController.handleDeleteSensor)
 
   //sensors data
   router.post(
@@ -49,7 +52,7 @@ let initWebRoutes = (app) => {
     sensorDataController.handleGetAllSensorData,
   )
   router.put("/update-sensor-data", sensorDataController.handleUpdateSensorData)
-  router.get(
+  router.delete(
     "/delete-sensor-data/:_id",
     sensorDataController.handleDeleteSensorData,
   )

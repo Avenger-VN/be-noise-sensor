@@ -67,25 +67,23 @@ const handleGetAllSensorService = (page, limit) => {
 const handleDeleteSensorService = (id) => {
   return new Promise(async (resolve, reject) => {
     try {
-      let data = await db.Sensor.findOne({
+      const sensor = await db.Sensor.findOne({
         where: {
           id: id,
         },
         raw: false,
       })
-      if (!data) {
-        resolve({
-          status: false,
-          mes: "The sensor isn't exist!",
-        })
-      }
 
-      data.destroy().then(function () {
+      if (sensor) {
+        sensor.deleted = true
+
+        await sensor.save()
+
         resolve({
           status: true,
           mes: "OK",
         })
-      })
+      }
     } catch (e) {
       reject(e)
     }

@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       address: DataTypes.STRING,
       latitude: DataTypes.INTEGER,
       longitude: DataTypes.INTEGER,
+      deleted: DataTypes.BOOLEAN,
     },
     {
       sequelize,
