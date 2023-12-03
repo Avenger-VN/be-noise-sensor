@@ -43,6 +43,9 @@ const handleGetAllSensorService = (page, limit) => {
     try {
       let offset = (page - 1) * limit
       const { count, rows } = await db.Sensor.findAndCountAll({
+        where: {
+          deleted: false,
+        },
         offset: offset,
         limit: limit,
       })

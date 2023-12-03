@@ -1268,7 +1268,7 @@ paths:
         - name: limit
           in: query
           description: Limit sensor data
-          required: false
+          required: true
           explode: true
           schema:
             type: integer
@@ -1276,7 +1276,7 @@ paths:
         - name: page
           in: query
           description: Page sensor data
-          required: false
+          required: true
           explode: true
           schema:
             type: integer
