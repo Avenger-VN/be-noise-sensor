@@ -14,6 +14,7 @@ let initWebRoutes = (app) => {
   router.get("/get-all-user", userController.handleGetAllUser)
   router.put("/update-user", userController.handleUpdateUser)
   router.delete("/delete-user/:_id", userController.handleDeleteUser)
+  router.post("/login", userController.handleLogin)
 
   //alerts
   router.post("/create-alert", alertController.handleCreateAlert)

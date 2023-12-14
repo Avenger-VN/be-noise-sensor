@@ -7,6 +7,7 @@ const createJWT = (payload) => {
     const token = jwt.sign(payload, key, {
       expiresIn: "1d",
     })
+    console.log("Token: ", token)
     return token
   } catch (error) {
     console.log(error)

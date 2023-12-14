@@ -5,6 +5,7 @@ const handleCreateSensorData = async (req, res) => {
     const response = await sensorDataServices.handleCreateSensorDataService(
       req.body,
     )
+    //check value => mail,sms
     return res.status(200).json({
       status: response.status,
       mes: response.mes,
