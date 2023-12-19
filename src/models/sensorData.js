@@ -9,13 +9,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate() {
       // define association here
+      //SensorData.hasOne(models.Sensor, { foreignKey: "id" })
     }
   }
   SensorData.init(
     {
       sensorID: DataTypes.INTEGER,
-      time: DataTypes.STRING,
       type: DataTypes.STRING,
+      time: DataTypes.STRING,
       serialNo: DataTypes.INTEGER,
       locationID: DataTypes.INTEGER,
       field: DataTypes.STRING,

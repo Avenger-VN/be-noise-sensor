@@ -63,6 +63,25 @@ const handleDeleteSensorData = async (req, res) => {
   }
 }
 
+const handleGetSensorDataById = async (req, res) => {
+  try {
+    const { _id } = req.params
+    const response =
+      await sensorDataServices.handleGetSensorDataByIdService(_id)
+    return res.status(200).json({
+      status: response.status,
+      mes: response.mes,
+      data: response.data,
+    })
+  } catch (e) {
+    console.log(e)
+    return res.status(500).json({
+      status: false,
+      mes: "Error from server",
+    })
+  }
+}
+
 const handleUpdateSensorData = async (req, res) => {
   try {
     const response = await sensorDataServices.handleUpdateSensorDataService(
@@ -86,4 +105,5 @@ module.exports = {
   handleGetAllSensorData,
   handleDeleteSensorData,
   handleUpdateSensorData,
+  handleGetSensorDataById,
 }

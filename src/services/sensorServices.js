@@ -93,6 +93,29 @@ const handleDeleteSensorService = (id) => {
   })
 }
 
+const handleGetSensorByIdService = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const sensor = await db.Sensor.findOne({
+        where: {
+          id: id,
+        },
+        raw: false,
+      })
+
+      if (sensor) {
+        resolve({
+          status: true,
+          mes: "OK",
+          data: sensor,
+        })
+      }
+    } catch (e) {
+      reject(e)
+    }
+  })
+}
+
 const handleUpdateSensorService = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -132,4 +155,5 @@ module.exports = {
   handleDeleteSensorService,
   handleUpdateSensorService,
   handleGetAllSensorServiceDemo,
+  handleGetSensorByIdService,
 }

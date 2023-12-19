@@ -14,6 +14,7 @@ let initWebRoutes = (app) => {
   router.get("/get-all-user", userController.handleGetAllUser)
   router.put("/update-user", userController.handleUpdateUser)
   router.delete("/delete-user/:_id", userController.handleDeleteUser)
+  router.get("/get-user/:_id", userController.handleGetUserById)
   router.post("/login", userController.handleLogin)
 
   //alerts
@@ -21,6 +22,7 @@ let initWebRoutes = (app) => {
   router.get("/get-all-alert", alertController.handleGetAllAlert)
   router.put("/update-alert", alertController.handleUpdateAlert)
   router.delete("/delete-alert/:_id", alertController.handleDeleteAlert)
+  router.get("/get-alert/:_id", alertController.handleGetAlertById)
 
   //locations
   router.post("/create-location", locationController.handleCreateLocation)
@@ -30,18 +32,21 @@ let initWebRoutes = (app) => {
     "/delete-location/:_id",
     locationController.handleDeleteLocation,
   )
+  router.get("/get-location/:_id", locationController.handleGetLocationById)
 
   //roles
   router.post("/create-role", roleController.handleCreateRole)
   router.get("/get-all-role", roleController.handleGetAllRole)
   router.put("/update-role", roleController.handleUpdateRole)
   router.delete("/delete-role/:_id", roleController.handleDeleteRole)
+  router.get("/get-role/:_id", roleController.handleGetRoleById)
 
   //sensors
   router.post("/create-sensor", sensorController.handleCreateSensor)
   router.get("/get-all-sensor", sensorController.handleGetAllSensor)
   router.put("/update-sensor", sensorController.handleUpdateSensor)
   router.delete("/delete-sensor/:_id", sensorController.handleDeleteSensor)
+  router.get("/get-sensor/:_id", sensorController.handleGetSensorById)
 
   //sensors data
   router.post(
@@ -56,6 +61,10 @@ let initWebRoutes = (app) => {
   router.delete(
     "/delete-sensor-data/:_id",
     sensorDataController.handleDeleteSensorData,
+  )
+  router.get(
+    "/get-sensor-data/:_id",
+    sensorDataController.handleGetSensorDataById,
   )
 
   return app.use("/api/v1", router)

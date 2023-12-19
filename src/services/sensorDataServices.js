@@ -6,18 +6,15 @@ const handleCreateSensorDataService = (data) => {
       if (
         !data.sensorID ||
         !data.time ||
-        !data.time ||
         !data.serialNo ||
         !data.type ||
-        !data.locationID ||
-        !data.field
+        !data.locationID
       ) {
         resolve({
           status: false,
           mes: "Missing params",
         })
       }
-
       const response = await db.SensorData.create(data)
       resolve({
         status: true,
@@ -101,6 +98,29 @@ const handleDeleteSensorDataService = (id) => {
   })
 }
 
+const handleGetSensorDataByIdService = (id) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const data = await db.SensorData.findOne({
+        where: {
+          id: id,
+        },
+        raw: false,
+      })
+
+      if (data) {
+        resolve({
+          status: true,
+          mes: "OK",
+          data: data,
+        })
+      }
+    } catch (e) {
+      reject(e)
+    }
+  })
+}
+
 const handleUpdateSensorDataService = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -143,4 +163,5 @@ module.exports = {
   handleDeleteSensorDataService,
   handleUpdateSensorDataService,
   handleGetAllSensorDataServiceDemo,
+  handleGetSensorDataByIdService,
 }

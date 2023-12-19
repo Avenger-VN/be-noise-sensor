@@ -157,6 +157,29 @@ const handleDeleteUserService = (userId) => {
   })
 }
 
+const handleGetUserByIdService = (userId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const user = await db.User.findOne({
+        where: {
+          id: userId,
+        },
+        raw: false,
+      })
+
+      if (user) {
+        resolve({
+          status: true,
+          mes: "OK",
+          data: user,
+        })
+      }
+    } catch (e) {
+      reject(e)
+    }
+  })
+}
+
 const handleUpdateUserService = (data) => {
   // eslint-disable-next-line no-async-promise-executor
   return new Promise(async (resolve, reject) => {
@@ -200,4 +223,5 @@ module.exports = {
   handleDeleteUserService,
   handleUpdateUserService,
   handleGetAllUserServiceDemo,
+  handleGetUserByIdService,
 }

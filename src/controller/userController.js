@@ -62,6 +62,24 @@ const handleDeleteUser = async (req, res) => {
   }
 }
 
+const handleGetUserById = async (req, res) => {
+  try {
+    const { _id } = req.params
+    const response = await userServices.handleGetUserByIdService(_id)
+    return res.status(200).json({
+      status: response.status,
+      mes: response.mes,
+      data: response.data,
+    })
+  } catch (e) {
+    console.log(e)
+    return res.status(500).json({
+      status: false,
+      mes: "Error from server",
+    })
+  }
+}
+
 const handleUpdateUser = async (req, res) => {
   try {
     const response = await userServices.handleUpdateUserService(req.body)
@@ -124,4 +142,5 @@ module.exports = {
   handleDeleteUser,
   handleUpdateUser,
   handleLogin,
+  handleGetUserById,
 }

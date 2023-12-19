@@ -57,6 +57,24 @@ const handleDeleteAlert = async (req, res) => {
   }
 }
 
+const handleGetAlertById = async (req, res) => {
+  try {
+    const { _id } = req.params
+    const response = await alertServices.handleGetAlertServiceById(_id)
+    return res.status(200).json({
+      status: response.status,
+      mes: response.mes,
+      data: response.data,
+    })
+  } catch (e) {
+    console.log(e)
+    return res.status(500).json({
+      status: false,
+      mes: "Error from server",
+    })
+  }
+}
+
 const handleUpdateAlert = async (req, res) => {
   try {
     const response = await alertServices.handleUpdateAlertService(req.body)
@@ -78,4 +96,5 @@ module.exports = {
   handleGetAllAlert,
   handleDeleteAlert,
   handleUpdateAlert,
+  handleGetAlertById,
 }

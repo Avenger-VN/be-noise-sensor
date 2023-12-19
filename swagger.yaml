@@ -309,7 +309,68 @@ paths:
         - petstore_auth:
             - write:pets
             - read:pets
+  /get-user/{userId}:
+    get:
+      tags:
+        - User
+      summary: Get a user
+      description: Get a user
+      operationId: getById
+      parameters:
+        - name: userId
+          in: path
+          description: ID of user in url
+          required: true
+          schema:
+            type: integer
+            format: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: true
+                  mes:
+                    type: string
+                    example: "OK"
+                  data:
+                    type: object
+                    properties:
+                      email:
+                        type: string
+                        example: takis@gmail.com
+                      lastName:
+                        type: string
+                        example: takis
+                      firstName:
+                        type: string
+                        example: tech
+                      roleID: 
+                        type: integer
+                        example: 1
+                      password:
+                        type: string
+                        example: "123456"
+                      phone:
+                        type: string
+                        example: "0123456789"
+                      address:
+                        type: string
+                        example: "HCM"
+        '400':
+          description: Invalid tag value
+      security:
+        - api_key: []
+        - petstore_auth:
+            - write:pets
+            - read:pets
   
+
   /create-role:
     post:
       tags:
@@ -462,7 +523,7 @@ paths:
                   name:
                     type: string
                     example: admin
-                  description::
+                  description:
                     type: string
                     example: role admin
         '400':
@@ -504,6 +565,45 @@ paths:
           description: Invalid ID supplied
         '404':
           description: User not found
+      security:
+        - api_key: []
+        - petstore_auth:
+            - write:pets
+            - read:pets
+  /get-role/{roleId}:
+    get:
+      tags:
+        - Role
+      summary: Get a role
+      description: Get a role
+      operationId: GetById
+      parameters:
+        - name: roleId
+          in: path
+          description: ID of role in url
+          required: true
+          schema:
+            type: integer
+            format: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: admin
+                  description:
+                    type: string
+                    example: role admin
+        '400':
+          description: Invalid tag value
       security:
         - api_key: []
         - petstore_auth:
@@ -567,7 +667,6 @@ paths:
         - petstore_auth:
             - write:pets
             - read:pets 
-
   /get-all-alert:
     get:
       tags:
@@ -702,7 +801,6 @@ paths:
         - petstore_auth:
             - write:pets
             - read:pets
-
   /delete-alert/{alertId}:
     delete:
       tags:
@@ -741,7 +839,52 @@ paths:
         - petstore_auth:
             - write:pets
             - read:pets
-  
+  /get-alert/{alertId}:
+    get:
+      tags:
+        - Alert
+      summary: get a alert
+      description: get a alert
+      operationId: getById
+      parameters:
+        - name: alertId
+          in: path
+          description: ID of alert in url
+          required: true
+          schema:
+            type: integer
+            format: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  sensorID:
+                    type: integer
+                    example: 12
+                  description:
+                    type: string
+                    example: alert sensor
+                  time:
+                    type: string
+                    example: 1528362933
+                  name:
+                    type: string
+                    example: alert
+        '400':
+          description: Invalid tag value
+      security:
+        - api_key: []
+        - petstore_auth:
+            - write:pets
+            - read:pets
+
   /create-location:
     post:
       tags:
@@ -799,7 +942,6 @@ paths:
         - petstore_auth:
             - write:pets
             - read:pets 
-
   /get-all-location:
     get:
       tags:
@@ -934,7 +1076,6 @@ paths:
         - petstore_auth:
             - write:pets
             - read:pets
-
   /delete-location/{locationId}:
     delete:
       tags:
@@ -973,7 +1114,52 @@ paths:
         - petstore_auth:
             - write:pets
             - read:pets
-  
+  /get-location/{locationId}:
+    get:
+      tags:
+        - Location
+      summary: get a location
+      description: get a location
+      operationId: getById
+      parameters:
+        - name: locationId
+          in: path
+          description: ID of location in url
+          required: true
+          schema:
+            type: integer
+            format: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: HCM
+                  address:
+                    type: string
+                    example: 39 Xuan Oai
+                  latitude:
+                    type: integer
+                    example: 15
+                  longitude:
+                    type: integer
+                    example: 12
+        '400':
+          description: Invalid tag value
+      security:
+        - api_key: []
+        - petstore_auth:
+            - write:pets
+            - read:pets
+
   /create-sensor:
     post:
       tags:
@@ -1191,7 +1377,44 @@ paths:
         - petstore_auth:
             - write:pets
             - read:pets
-  
+  /get-sensor/{sensorId}:
+    get:
+      tags:
+        - Sensor
+      summary: get a sensor
+      description: get a sensor
+      operationId: getById
+      parameters:
+        - name: sensorId
+          in: path
+          description: ID of sensor in url
+          required: true
+          schema:
+            type: integer
+            format: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  name:
+                    type: string
+                    example: HCM
+                  description:
+                    type: string
+                    example: Mo ta
+                  type:
+                    type: string
+                    example: type
+        '400':
+          description: Invalid tag value
+
   /create-sensor-data:
     post:
       tags:
@@ -1434,6 +1657,54 @@ paths:
           description: Invalid ID supplied
         '404':
           description: User not found
+      security:
+        - api_key: []
+        - petstore_auth:
+            - write:pets
+            - read:pets
+  /get-sensor-data/{id}:
+    get:
+      tags:
+        - Sensor Data
+      summary: get a sensor data
+      description: get a sensor data
+      operationId: getSensorDataById
+      parameters:
+        - name: id
+          in: path
+          description: ID of sensor data in url
+          required: true
+          schema:
+            type: integer
+            format: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  sensorID:
+                    type: integer
+                    example: 1
+                  time:
+                    type: string
+                    example: '13343893444'
+                  type:
+                    type: string
+                    example: type
+                  serialNo: 
+                    type: integer
+                    example: 2
+                  locationID:
+                    type: integer
+                    example: 1
+        '400':
+          description: Invalid tag value
       security:
         - api_key: []
         - petstore_auth:

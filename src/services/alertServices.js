@@ -93,6 +93,29 @@ const handleDeleteAlertService = (alertId) => {
   })
 }
 
+const handleGetAlertServiceById = (alertId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const alert = await db.Alert.findOne({
+        where: {
+          id: alertId,
+        },
+        raw: false,
+      })
+
+      if (alert) {
+        resolve({
+          status: true,
+          mes: "OK",
+          data: alert,
+        })
+      }
+    } catch (e) {
+      reject(e)
+    }
+  })
+}
+
 const handleUpdateAlertService = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -133,4 +156,5 @@ module.exports = {
   handleDeleteAlertService,
   handleUpdateAlertService,
   handleGetAllAlertServiceDemo,
+  handleGetAlertServiceById,
 }

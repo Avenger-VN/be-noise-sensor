@@ -94,6 +94,29 @@ const handleDeleteRoleService = (roleId) => {
   })
 }
 
+const handleGetRoleByIdService = (roleId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const role = await db.Role.findOne({
+        where: {
+          id: roleId,
+        },
+        raw: false,
+      })
+
+      if (role) {
+        resolve({
+          status: true,
+          mes: "OK",
+          data: role,
+        })
+      }
+    } catch (e) {
+      reject(e)
+    }
+  })
+}
+
 const handleUpdateRoleService = (data) => {
   // eslint-disable-next-line no-async-promise-executor
   return new Promise(async (resolve, reject) => {
@@ -133,4 +156,5 @@ module.exports = {
   handleDeleteRoleService,
   handleUpdateRoleService,
   handleGetAllRoleServiceDemo,
+  handleGetRoleByIdService,
 }

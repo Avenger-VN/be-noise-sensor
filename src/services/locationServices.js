@@ -93,6 +93,29 @@ const handleDeleteLocationService = (locationId) => {
   })
 }
 
+const handleGetAllLocationByIdService = (locationId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const location = await db.Location.findOne({
+        where: {
+          id: locationId,
+        },
+        raw: false,
+      })
+
+      if (location) {
+        resolve({
+          status: true,
+          mes: "OK",
+          data: location,
+        })
+      }
+    } catch (e) {
+      reject(e)
+    }
+  })
+}
+
 const handleUpdateLocationService = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -132,4 +155,5 @@ module.exports = {
   handleDeleteLocationService,
   handleUpdateLocationService,
   handleGetAllLocationServiceDemo,
+  handleGetAllLocationByIdService,
 }

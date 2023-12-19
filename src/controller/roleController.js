@@ -57,6 +57,24 @@ const handleDeleteRole = async (req, res) => {
   }
 }
 
+const handleGetRoleById = async (req, res) => {
+  try {
+    const { _id } = req.params
+    const response = await roleServices.handleGetRoleByIdService(_id)
+    return res.status(200).json({
+      status: response.status,
+      mes: response.mes,
+      data: response.data,
+    })
+  } catch (e) {
+    console.log(e)
+    return res.status(500).json({
+      status: false,
+      mes: "Error from server",
+    })
+  }
+}
+
 const handleUpdateRole = async (req, res) => {
   try {
     const response = await roleServices.handleUpdateRoleService(req.body)
@@ -78,4 +96,5 @@ module.exports = {
   handleGetAllRole,
   handleDeleteRole,
   handleUpdateRole,
+  handleGetRoleById,
 }
