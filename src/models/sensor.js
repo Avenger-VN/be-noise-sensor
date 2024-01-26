@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       name: DataTypes.STRING,
       description: DataTypes.STRING,
       type: DataTypes.STRING,
-      deleted: DataTypes.BOOLEAN,
+      deleted: DataTypes.INTEGER, // 1: deleted, 2: do not
     },
     {
       sequelize,

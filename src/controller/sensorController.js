@@ -2,11 +2,13 @@ const sensorServices = require("../services/sensorServices")
 
 const handleCreateSensor = async (req, res) => {
   try {
-    const response = await sensorServices.handleCreateSensorService(req.body)
-    return res.status(200).json({
-      status: response.status,
-      mes: response.mes,
-    })
+    if (req.body?.name && req.body?.description) {
+      const response = await sensorServices.handleCreateSensorService(req.body)
+      return res.status(200).json({
+        status: response.status,
+        mes: response.mes,
+      })
+    }
   } catch (e) {
     console.log(e)
     return res.status(500).json({
@@ -91,10 +93,28 @@ const handleUpdateSensor = async (req, res) => {
   }
 }
 
+const handleGetAllSensorCronJob = async () => {
+  try {
+    let response = null
+    response = await sensorServices.handleGetAllSensorServiceDemo()
+    return {
+      status: response?.status,
+      mes: response?.mes,
+      data: response?.data,
+    }
+  } catch (e) {
+    return {
+      status: false,
+      mes: "Error from server",
+    }
+  }
+}
+
 module.exports = {
   handleCreateSensor,
   handleGetAllSensor,
   handleDeleteSensor,
   handleUpdateSensor,
   handleGetSensorById,
+  handleGetAllSensorCronJob,
 }

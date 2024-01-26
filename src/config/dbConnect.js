@@ -1,16 +1,26 @@
 const { Sequelize } = require("sequelize")
+const dotenv = require("dotenv")
+// const { updateSensorData } = require("../cron")
 
-// Option 3: Passing parameters separately (other dialects)
-const sequelize = new Sequelize("postgres", "postgres", "nguyenminhchienit", {
-  host: "localhost",
+dotenv.config()
+
+const DATABASE_URI = process.env.DATABASE_URI
+
+if (!DATABASE_URI) {
+  throw new Error("DATABASE_URI needs to be set")
+}
+
+const sequelize = new Sequelize(DATABASE_URI, {
   dialect: "postgres",
-  logging: false,
+  logging: true,
 })
 
 let connectDB = async () => {
   try {
     await sequelize.authenticate()
     console.log("Connection has been established successfully.")
+    // updateSensorData.start()
+    console.log("Start cron job")
   } catch (error) {
     console.error("Unable to connect to the database:", error)
   }

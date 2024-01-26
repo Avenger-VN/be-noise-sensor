@@ -9,7 +9,9 @@ const handleCreateSensorService = (data) => {
           mes: "Missing params",
         })
       }
-
+      if (!data.deleted) {
+        data.deleted = false
+      }
       const response = await db.Sensor.create(data)
       resolve({
         status: true,
