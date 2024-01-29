@@ -1,6 +1,6 @@
 const { Sequelize } = require("sequelize")
 const dotenv = require("dotenv")
-// const { updateSensorData } = require("../cron")
+const { updateSensorData } = require("../cron")
 
 dotenv.config()
 
@@ -19,7 +19,7 @@ let connectDB = async () => {
   try {
     await sequelize.authenticate()
     console.log("Connection has been established successfully.")
-    // updateSensorData.start()
+    updateSensorData.start()
     console.log("Start cron job")
   } catch (error) {
     console.error("Unable to connect to the database:", error)

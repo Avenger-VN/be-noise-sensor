@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       address: DataTypes.STRING,
       latitude: DataTypes.INTEGER,
       longitude: DataTypes.INTEGER,
-      deleted: DataTypes.BOOLEAN,
+      deleted: DataTypes.INTEGER, // 1: deleted, 2: do not
     },
     {
       sequelize,

@@ -1,3 +1,4 @@
+const { STATUS } = require("../constants/status")
 const db = require("../models")
 
 const handleCreateSensorService = (data) => {
@@ -10,7 +11,7 @@ const handleCreateSensorService = (data) => {
         })
       }
       if (!data.deleted) {
-        data.deleted = false
+        data.deleted = 2
       }
       const response = await db.Sensor.create(data)
       resolve({
@@ -24,10 +25,14 @@ const handleCreateSensorService = (data) => {
   })
 }
 
-const handleGetAllSensorServiceDemo = () => {
+const handleGetAllSensorServiceForCron = () => {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await db.Sensor.findAll()
+      const response = await db.Sensor.findAll({
+        where: {
+          deleted: STATUS.DELETED,
+        },
+      })
 
       resolve({
         status: true,
@@ -46,7 +51,7 @@ const handleGetAllSensorService = (page, limit) => {
       let offset = (page - 1) * limit
       const { count, rows } = await db.Sensor.findAndCountAll({
         where: {
-          deleted: false,
+          deleted: STATUS.DELETED,
         },
         offset: offset,
         limit: limit,
@@ -156,6 +161,6 @@ module.exports = {
   handleGetAllSensorService,
   handleDeleteSensorService,
   handleUpdateSensorService,
-  handleGetAllSensorServiceDemo,
+  handleGetAllSensorServiceForCron,
   handleGetSensorByIdService,
 }

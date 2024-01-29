@@ -1,15 +1,10 @@
+const { STATUS } = require("../constants/status")
 const db = require("../models")
 
 const handleCreateSensorDataService = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      if (
-        !data.sensorID ||
-        !data.time ||
-        !data.serialNo ||
-        !data.type ||
-        !data.locationID
-      ) {
+      if (!data.sensorID || !data.time || !data.locationID) {
         resolve({
           status: false,
           mes: "Missing params",
@@ -49,7 +44,7 @@ const handleGetAllSensorDataService = (page, limit) => {
       let offset = (page - 1) * limit
       const { count, rows } = await db.SensorData.findAndCountAll({
         where: {
-          deleted: false,
+          deleted: STATUS.DELETED,
         },
         offset: offset,
         limit: limit,

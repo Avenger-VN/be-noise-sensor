@@ -1,3 +1,4 @@
+const { STATUS } = require("../constants/status")
 const db = require("../models")
 
 const handleCreateLocationService = (data) => {
@@ -9,7 +10,9 @@ const handleCreateLocationService = (data) => {
           mes: "Missing params",
         })
       }
-
+      if (!data.deleted) {
+        data.deleted = STATUS.DELETED
+      }
       const response = await db.Location.create(data)
       resolve({
         status: true,
@@ -44,7 +47,7 @@ const handleGetAllLocationService = (page, limit) => {
       let offset = (page - 1) * limit
       const { count, rows } = await db.Location.findAndCountAll({
         where: {
-          deleted: false,
+          deleted: STATUS.DELETED,
         },
         offset: offset,
         limit: limit,

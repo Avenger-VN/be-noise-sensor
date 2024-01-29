@@ -15,12 +15,10 @@ module.exports = (sequelize, DataTypes) => {
   SensorData.init(
     {
       sensorID: DataTypes.INTEGER,
-      type: DataTypes.STRING,
-      time: DataTypes.STRING,
-      serialNo: DataTypes.INTEGER,
       locationID: DataTypes.INTEGER,
-      field: DataTypes.STRING,
-      deleted: DataTypes.BOOLEAN,
+      value: DataTypes.INTEGER,
+      time: DataTypes.STRING,
+      deleted: DataTypes.INTEGER,
     },
     {
       sequelize,

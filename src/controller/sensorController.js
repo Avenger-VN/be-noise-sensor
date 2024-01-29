@@ -96,13 +96,14 @@ const handleUpdateSensor = async (req, res) => {
 const handleGetAllSensorCronJob = async () => {
   try {
     let response = null
-    response = await sensorServices.handleGetAllSensorServiceDemo()
+    response = await sensorServices.handleGetAllSensorServiceForCron()
     return {
       status: response?.status,
       mes: response?.mes,
       data: response?.data,
     }
   } catch (e) {
+    console.log(e)
     return {
       status: false,
       mes: "Error from server",

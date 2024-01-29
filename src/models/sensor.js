@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   Sensor.init(
     {
       name: DataTypes.STRING,
+      serial_no: DataTypes.STRING,
       description: DataTypes.STRING,
       type: DataTypes.STRING,
       deleted: DataTypes.INTEGER, // 1: deleted, 2: do not
