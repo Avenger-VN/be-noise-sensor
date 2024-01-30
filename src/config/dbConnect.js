@@ -1,5 +1,6 @@
 const { Sequelize } = require("sequelize")
 const dotenv = require("dotenv")
+const pg = require("pg")
 const { updateSensorData } = require("../cron")
 
 dotenv.config()
@@ -12,6 +13,7 @@ if (!DATABASE_URI) {
 
 const sequelize = new Sequelize(DATABASE_URI, {
   dialect: "postgres",
+  dialectModule: pg, //
   logging: true,
 })
 

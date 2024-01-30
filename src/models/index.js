@@ -5,6 +5,7 @@ const path = require("path")
 const Sequelize = require("sequelize")
 const dotenv = require("dotenv")
 const basename = path.basename(__filename)
+const pg = require("pg")
 const db = {}
 dotenv.config()
 
@@ -15,6 +16,7 @@ if (!DATABASE_URI) {
 }
 const sequelize = new Sequelize(DATABASE_URI, {
   dialect: "postgres",
+  dialectModule: pg, //
   logging: true,
 })
 
