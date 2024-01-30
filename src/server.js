@@ -16,12 +16,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 connectDB()
 
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-    methods: ["POST", "PUT", "GET", "DELETE"],
-  }),
-)
+app.use(cors())
 
 // app.use(express.json())
 
