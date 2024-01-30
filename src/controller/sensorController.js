@@ -26,7 +26,7 @@ const handleGetAllSensor = async (req, res) => {
       let limit = req.query.limit
       response = await sensorServices.handleGetAllSensorService(+page, +limit)
     } else {
-      response = await sensorServices.handleGetAllSensorServiceDemo()
+      response = await sensorServices.handleGetAllSensorServiceForCron()
     }
     return res.status(200).json({
       status: response?.status,
