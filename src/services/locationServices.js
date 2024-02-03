@@ -81,7 +81,7 @@ const handleDeleteLocationService = (locationId) => {
       })
 
       if (location) {
-        location.deleted = true
+        location.deleted = STATUS.DELETED
 
         await location.save()
 

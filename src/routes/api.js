@@ -5,17 +5,20 @@ const locationController = require("../controller/locationController")
 const roleController = require("../controller/roleController")
 const sensorController = require("../controller/sensorController")
 const sensorDataController = require("../controller/sensorDataController")
+const authenticateController = require("../controller/authenticateController")
 
 let router = express.Router()
 
 let initWebRoutes = (app) => {
+  // authenticate
+  router.post("/login", authenticateController.login)
+
   //users
   router.post("/create-user", userController.handleCreateUser)
   router.get("/get-all-user", userController.handleGetAllUser)
   router.put("/update-user", userController.handleUpdateUser)
   router.delete("/delete-user/:_id", userController.handleDeleteUser)
   router.get("/get-user/:_id", userController.handleGetUserById)
-  router.post("/login", userController.handleLogin)
 
   //alerts
   router.post("/create-alert", alertController.handleCreateAlert)

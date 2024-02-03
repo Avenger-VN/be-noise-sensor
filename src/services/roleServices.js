@@ -1,4 +1,5 @@
 const db = require("../models")
+const { STATUS } = require("../constants/status")
 
 const handleCreateRoleService = (data) => {
   // eslint-disable-next-line no-async-promise-executor
@@ -79,7 +80,7 @@ const handleDeleteRoleService = (roleId) => {
       })
 
       if (role) {
-        role.deleted = true
+        role.deleted = STATUS.DELETED
 
         await role.save()
 

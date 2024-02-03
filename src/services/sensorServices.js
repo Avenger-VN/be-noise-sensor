@@ -11,7 +11,7 @@ const handleCreateSensorService = (data) => {
         })
       }
       if (!data.deleted) {
-        data.deleted = 2
+        data.deleted = STATUS.DELETED
       }
       const response = await db.Sensor.create(data)
       resolve({
@@ -85,7 +85,7 @@ const handleDeleteSensorService = (id) => {
       })
 
       if (sensor) {
-        sensor.deleted = true
+        sensor.deleted = STATUS.DELETED
 
         await sensor.save()
 

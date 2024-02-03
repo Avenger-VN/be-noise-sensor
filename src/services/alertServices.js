@@ -78,7 +78,7 @@ const handleDeleteAlertService = (alertId) => {
       })
 
       if (alert) {
-        alert.deleted = true
+        alert.deleted = STATUS.DELETED
 
         await alert.save()
 

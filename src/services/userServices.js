@@ -1,6 +1,7 @@
 const db = require("../models")
 const bcrypt = require("bcryptjs")
 const salt = bcrypt.genSaltSync(10)
+const { STATUS } = require("../constants/status")
 
 let checkUserMail = (userMail) => {
   // eslint-disable-next-line no-async-promise-executor
@@ -142,7 +143,7 @@ const handleDeleteUserService = (userId) => {
       })
 
       if (user) {
-        user.deleted = true
+        user.deleted = STATUS.DELETED
 
         await user.save()
 
@@ -150,6 +151,25 @@ const handleDeleteUserService = (userId) => {
           status: true,
           mes: "OK",
         })
+      }
+    } catch (e) {
+      reject(e)
+    }
+  })
+}
+
+const handleGetUserByEmail = (email) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const user = await db.User.findOne({
+        where: {
+          email: email,
+          status: STATUS.UN_DELETE,
+        },
+        raw: false,
+      })
+      if (user) {
+        return resolve(user)
       }
     } catch (e) {
       reject(e)
@@ -224,4 +244,5 @@ module.exports = {
   handleUpdateUserService,
   handleGetAllUserServiceDemo,
   handleGetUserByIdService,
+  handleGetUserByEmail,
 }

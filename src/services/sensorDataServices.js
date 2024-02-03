@@ -78,7 +78,7 @@ const handleDeleteSensorDataService = (id) => {
       })
 
       if (data) {
-        data.deleted = true
+        data.deleted = STATUS.DELETED
 
         await data.save()
 
