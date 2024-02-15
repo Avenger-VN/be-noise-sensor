@@ -106,7 +106,7 @@ const handleGetAllUserService = (page, limit) => {
       let offset = (page - 1) * limit
       const { count, rows } = await db.User.findAndCountAll({
         where: {
-          deleted: false,
+          deleted: STATUS.UN_DELETE,
         },
         offset: offset,
         limit: limit,
