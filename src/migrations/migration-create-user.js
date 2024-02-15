@@ -33,7 +33,7 @@ module.exports = {
         allowNull: true,
       },
       deleted: {
-        type: Sequelize.BOOLEAN,
+        type: Sequelize.INTEGER,
         defaultValue: false,
       },
       createdAt: {

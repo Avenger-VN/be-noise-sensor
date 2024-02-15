@@ -11,7 +11,7 @@ const handleCreateLocationService = (data) => {
         })
       }
       if (!data.deleted) {
-        data.deleted = STATUS.DELETED
+        data.deleted = STATUS.UN_DELETE
       }
       const response = await db.Location.create(data)
       resolve({

@@ -11,7 +11,7 @@ const handleCreateSensorService = (data) => {
         })
       }
       if (!data.deleted) {
-        data.deleted = STATUS.DELETED
+        data.deleted = STATUS.UN_DELETE
       }
       const response = await db.Sensor.create(data)
       resolve({
@@ -30,7 +30,7 @@ const handleGetAllSensorServiceForCron = () => {
     try {
       const response = await db.Sensor.findAll({
         where: {
-          deleted: STATUS.DELETED,
+          deleted: STATUS.UN_DELETE,
         },
       })
 
@@ -51,7 +51,7 @@ const handleGetAllSensorService = (page, limit) => {
       let offset = (page - 1) * limit
       const { count, rows } = await db.Sensor.findAndCountAll({
         where: {
-          deleted: STATUS.DELETED,
+          deleted: STATUS.UN_DELETE,
         },
         offset: offset,
         limit: limit,

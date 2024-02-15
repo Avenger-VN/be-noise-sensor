@@ -1,0 +1,31 @@
+{
+  "development": {
+    "username": "buitandang96",
+    "password": "f6LezxDMa2Nt",
+    "database": "noise-sensor",
+    "host": "ep-old-rice-a1k90sm0.ap-southeast-1.aws.neon.tech",
+    "dialect": "postgresql",
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
+  },
+  "test": {
+    "username": "buitandang96",
+    "password": "f6LezxDMa2Nt",
+    "database": "noise-sensor",
+    "host": "ep-old-rice-a1k90sm0.ap-southeast-1.aws.neon.tech",
+    "dialect": "postgresql",
+    "ssl": "require"
+  },
+  "production": {
+    "username": "buitandang96",
+    "password": "f6LezxDMa2Nt",
+    "database": "noise-sensor",
+    "host": "ep-old-rice-a1k90sm0.ap-southeast-1.aws.neon.tech",
+    "dialect": "postgresql",
+    "ssl": "require"
+  }
+}

@@ -65,6 +65,9 @@ const handleCreateUserService = (data) => {
           ...data,
           password: hashPasswordFromBcrypt,
         }
+        if (!dataInput.deleted) {
+          data.deleted = STATUS.UN_DELETE
+        }
         console.log("Check user: ", dataInput)
         const user = await db.User.create(dataInput)
         resolve({
